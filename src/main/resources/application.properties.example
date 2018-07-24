@@ -1,0 +1,21 @@
+debug=true
+server.port=8801
+spring.datasource.url=jdbc:mysql://localhost:3306/blog?characterEncoding=utf-8&serverTimezone=GMT&useSSL=false
+spring.datasource.username=user
+spring.datasource.password=user-password
+spring.datasource.driver-class-name=com.mysql.jdbc.Driver
+spring.jpa.properties.hibernate.hbm2ddl.auto=update
+spring.jpa.properties.hibernate.connection.autocommit=false
+
+jwt.header=Authorization
+jwt.secret=mySecret
+jwt.expiration=604800
+jwt.route.authentication.path=/login
+jwt.route.authentication.refresh=/refresh
+spring.data.web.pageable.default-page-size=5
+
+# aliyun OSS config
+oss.access.key.id=ThisIsId
+oss.access.key.secret=ThisIsMySecret
+oss.bucket=my-bucket
+oss.region=oss-cn-qingdao

@@ -45,6 +45,7 @@ public class UserController extends BaseController{
             user.setPassword(passwordSalt);
             user.setLastPasswordResetDate(oldUser.getLastPasswordResetDate());
         }else {
+            user.setPassword(oldUser.getPassword());
             user.setLastPasswordResetDate(oldUser.getLastPasswordResetDate());
         }
         User updatedUser = userService.update(user);

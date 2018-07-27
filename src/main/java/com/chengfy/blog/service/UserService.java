@@ -36,6 +36,7 @@ public class UserService {
         return userRepository.save(user);
     }
     public User update(User user){
+        user.setEnabled(true);
         user.setLastModify(new Date());
         return userRepository.save(user);
     }

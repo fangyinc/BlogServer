@@ -38,9 +38,14 @@ public class UserController extends BaseController{
                 userService.isAdminister(loginUser))){
             return restUnauthorized("Unauthorized");
         }
-        if(user.getPassword() != null){
+        user.setId(id);
+        user.setAuthorities(oldUser.getAuthorities());
+        if(user.getPassword() != null && !user.getPassword().equals("")){
             String passwordSalt = new BCryptPasswordEncoder().encode(user.getPassword());
             user.setPassword(passwordSalt);
+            user.setLastPasswordResetDate(oldUser.getLastPasswordResetDate());
+        }else {
+            user.setLastPasswordResetDate(oldUser.getLastPasswordResetDate());
         }
         User updatedUser = userService.update(user);
         return restPostOk(updatedUser, "modified user successfully");

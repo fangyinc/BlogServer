@@ -1,9 +1,11 @@
 package com.chengfy.blog.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -47,8 +49,10 @@ public class User extends BaseModel
 
     private boolean enabled;     // jwt认证时添加
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @NotNull
+//    @Temporal(TemporalType.TIMESTAMP)
+//    @NotNull
+    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date lastPasswordResetDate;
 
     @ManyToMany(fetch = FetchType.EAGER)

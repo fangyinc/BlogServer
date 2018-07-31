@@ -42,7 +42,9 @@ public class TagService {
     public void deleteById(Long id){
         tagRepository.deleteById(id);
     }
+
     public List<Tag> findAll(){
-        return tagRepository.findAll();
+//        return tagRepository.findAll();
+        return tagRepository.findByPosts_Visible();
     }
 }

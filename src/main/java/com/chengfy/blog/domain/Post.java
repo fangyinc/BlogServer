@@ -32,6 +32,9 @@ public class Post extends BaseModel
 
     private String img;
 
+    // 是否可见, 可以将草稿设置为不可见
+    private boolean visible = true;
+
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;

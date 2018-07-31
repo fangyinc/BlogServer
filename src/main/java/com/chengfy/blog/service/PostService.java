@@ -67,32 +67,43 @@ public class PostService {
         postRepository.deleteById(id);
     }
 
+    /**
+     * 查询所有的可见文章
+     * @param pageable
+     * @return
+     */
     public Page<Post> findAll(Pageable pageable){
-        return postRepository.findAll(pageable);
+        return postRepository.findByVisible(true, pageable);
+    }
+
+    // 不可见文章(草稿)
+    public Page<Post> findAllInvisible(Pageable pageable) {
+        return postRepository.findByVisible(false, pageable);
     }
 
     public Page<Post> findAllByCategory(Pageable pageable, Category category){
-        Specification<Post> specification = (Root<Post> root, CriteriaQuery<?> criteriaQuery,
-                                             CriteriaBuilder criteriaBuilder)->{
-            Predicate _categoryId = criteriaBuilder.equal(root.get("category"), category);
-            return criteriaBuilder.and(_categoryId);
-        };
-        return postRepository.findAll(specification, pageable);
+//        Specification<Post> specification = (Root<Post> root, CriteriaQuery<?> criteriaQuery,
+//                                             CriteriaBuilder criteriaBuilder)->{
+//            Predicate _categoryId = criteriaBuilder.equal(root.get("category"), category);
+//            return criteriaBuilder.and(_categoryId);
+//        };
+//        return postRepository.findAll(specification, pageable);
+        return postRepository.findByCategoryAndVisible(category, true, pageable);
     }
 
     public Page<Post> findAllByTag(Pageable pageable, Tag tag){
-        return postRepository.findByTags_Id(tag.getId(), pageable);
+        return postRepository.findByTags_IdAndVisible(tag.getId(), true, pageable);
     }
 
     public Page<Post> findAllBySection(Pageable pageable, Section section){
-        return postRepository.findBySections_Id(section.getId(), pageable);
+        return postRepository.findBySections_IdAndVisible(section.getId(), true, pageable);
     }
 
     public List<Post> findAllByContent(String queryStr){
-        return postRepository.findByContentHtmlContaining(queryStr);    // 模糊查询
+        return postRepository.findByVisibleAndContentHtmlContaining(true, queryStr);    // 模糊查询
     }
     public List<Post> findAllByTitle(String title){
-        return postRepository.findByTitleContaining(title);
+        return postRepository.findByVisibleAndTitleContaining(true, title);
     }
 
     public List<Object[]> findPostGroupByTime(){

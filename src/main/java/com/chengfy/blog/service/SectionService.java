@@ -34,7 +34,8 @@ public class SectionService {
     }
 
     public List<Section> findAll(){
-        return sectionRepository.findAll();
+//        return sectionRepository.findAll();
+        return sectionRepository.findByPosts_Visible();
     }
 
     public Section findById(Long id){

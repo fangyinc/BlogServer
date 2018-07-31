@@ -7,9 +7,9 @@ import lombok.Data;
 @Data
 public class PostInfoEntity<T extends BaseModel> {
     private T info;     // Category, Tag, Section
-    private int postCount;
+    private Long postCount;
 
-    public PostInfoEntity(T info, int postCount) {
+    public PostInfoEntity(T info, Long postCount) {
         this.info = info;
         this.postCount = postCount;
     }

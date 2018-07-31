@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 public class BaseController {
@@ -64,9 +65,17 @@ public class BaseController {
     }
 
     protected User getUserFromContext(){
-        JwtUser jwtUser = (JwtUser) SecurityContextHolder.getContext()
+        /*JwtUser jwtUser = (JwtUser) SecurityContextHolder.getContext()
                 .getAuthentication()
-                .getPrincipal();
+                .getPrincipal();*/
+        Authentication loginAuthentication =  SecurityContextHolder.getContext()
+                .getAuthentication();
+
+        if(loginAuthentication == null || (loginAuthentication.getName().equals("anonymousUser"))){
+            logger.warn("There is no Login User at : getUserFromContext");
+            return null;
+        }
+        JwtUser jwtUser = (JwtUser)loginAuthentication.getPrincipal();
         logger.info(jwtUser.getUsername() + "Authorities: " + jwtUser.getAuthorities());
 
         User user = jwtUser.getUser();

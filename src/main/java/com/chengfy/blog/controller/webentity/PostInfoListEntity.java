@@ -19,13 +19,16 @@ public class PostInfoListEntity<T extends BaseModel> {
         for (BaseModel b: collection) {
             if(b instanceof Category){
                 Category category = (Category)b;
-                entityList.add( new PostInfoEntity<Category>(category, category.getPosts().size()));
+                entityList.add( new PostInfoEntity<Category>(category,
+                        category.getPosts().stream().filter(post -> post.isVisible()).count()));
             }else if(b instanceof Tag){
                 Tag tag = (Tag)b;
-                entityList.add(new PostInfoEntity<Tag>(tag,tag.getPosts().size()));
+                entityList.add(new PostInfoEntity<Tag>(tag,
+                        tag.getPosts().stream().filter(post -> post.isVisible()).count()));
             }else if(b instanceof Section){
                 Section section = (Section)b;
-                entityList.add(new PostInfoEntity<Section>(section, section.getPosts().size()));
+                entityList.add(new PostInfoEntity<Section>(section,
+                        section.getPosts().stream().filter(post -> post.isVisible()).count()));
             }
         }
         info = entityList;

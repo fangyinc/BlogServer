@@ -50,6 +50,13 @@ public class PostController extends BaseController {
         if(post == null){
             return restNotFound("There is no post with id: " + id);
         }
+        if(!post.isVisible()) {
+            // 常人不可见， 需要验证管理员权限
+            User user = getUserFromContext();
+            if(user == null || !userService.isAdminister(user)) {
+                return restUnauthorized("Unauthorized");
+            }
+        }
         return restGetOk(post, "Found post successfully");
     }
 
@@ -97,6 +104,16 @@ public class PostController extends BaseController {
         return restGetOk(postPage, "get postPage successfully");
     }
 
+    @Secured({ROLE_WRITE_ARTICLES, ROLE_ADMINISTER})
+    @GetMapping(value = {"/draft"})
+    public ResponseEntity<?> findAllInvisible(
+            @RequestParam(value = "page", defaultValue = "0") Integer page,
+            @RequestParam(value = "size", defaultValue = PAGE_SIZE) Integer size){
+        Sort sort = new Sort(Sort.Direction.DESC, "createTime");
+        Pageable pageable = PageRequest.of(page, size, sort);
+        Page<Post> postPage = postService.findAllInvisible(pageable);
+        return restGetOk(postPage, "get postPage successfully");
+    }
     @GetMapping(value = {"/query/{q}"})
     public ResponseEntity<?> queryByContent(@PathVariable String q){
         List<Post> titlePosts = postService.findAllByTitle(q);
@@ -120,6 +137,7 @@ public class PostController extends BaseController {
     public ResponseEntity<?> findByDate(@DateTimeFormat(iso=DateTimeFormat.ISO.DATE) Date date){
         List<Post> posts = postService.findByYearAndMonth(date);
         if(posts.isEmpty()){
+            System.err.println(date);
             return restNotFound("there is no post create at " + date.toString());
         }
         return restGetOk(posts, "Got posts successfully");

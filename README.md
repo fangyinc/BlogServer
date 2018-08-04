@@ -21,10 +21,10 @@
 
 ## 快速开始
 1. **安装**
-```
-git clone git@github.com:staneyffer/BlogServer.git
-cd BlogServer
-mvn install
+```shell
+$ git clone git@github.com:staneyffer/BlogServer.git
+$ cd BlogServer
+$ mvn install
 ```
 2. **创建数据库**  
 执行 ```src/main/resources/```下的```script.sql``` MySQL脚本文件
@@ -33,4 +33,6 @@ mvn install
 本项目的属性配置文件默认是 ```src/main/resources/application.properties.example```，还需要将```application.properties.example```改成:```application.properties```，并将application.properties中对应的字段改成你自己的配置
 (本项目中默认的数据库名字是: ```blog```, 如果需要修改请修改 ```src/main/resources/script.sql```及```src/main/resources/application.properties```两个文件中对应的配置)
 4. **运行项目**  
-```mvn spring-boot:run```
+```shell
+$ mvn spring-boot:run
+```

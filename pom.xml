@@ -9,7 +9,7 @@
 	<packaging>jar</packaging>
 
 	<name>blog</name>
-	<description>ChengFangyin`s Blog</description>
+	<description>Cheng Fangyin`s Blog</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>

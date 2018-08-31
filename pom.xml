@@ -76,6 +76,12 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!--升级JDK10之后导致一些错误，所以添加下面这个依赖-->
+		<dependency>
+			<groupId>javax.xml.bind</groupId>
+			<artifactId>jaxb-api</artifactId>
+			<version>2.3.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>

@@ -20,10 +20,13 @@ public class Post extends BaseModel
     @Column(nullable = false, unique = true)
     private String title;
 
-    @Column(columnDefinition = "TEXT")
+    @Lob
+//    @Column(length = 16777216)
     private String content;
 
-    @Column(columnDefinition = "TEXT")
+    // columnDefinition = "MEDIUMTEXT",
+    @Lob
+//    @Column(length = 16777216)
     private String contentHtml;
 
     // 不能使用desc

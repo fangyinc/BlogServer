@@ -83,7 +83,28 @@
 			<version>2.3.0</version>
 		</dependency>
 	</dependencies>
-
+	<profiles>
+		<profile>
+			<id>local</id>
+			<properties>
+				<env>local</env>
+				<springProfilesActive>local</springProfilesActive>
+			</properties>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+		</profile>
+		<profile>
+			<id>prod</id>
+			<properties>
+				<env>prod</env>
+				<springProfilesActive>prod</springProfilesActive>
+			</properties>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+		</profile>
+	</profiles>
 	<build>
 		<plugins>
 			<plugin>
